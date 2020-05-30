@@ -14,7 +14,9 @@ const REDIS_URL = isDevelopment ?
   'redis://127.0.0.1:6379' :
   'redis://h:p0d1c0b5b271a93c86f01c4766a508a304cdc3fc9c24b98697dc348ef567e8359@ec2-52-23-127-211.compute-1.amazonaws.com:11149'
 const DEFAULT_PORT = 3000;
-const ROOT_NODE_ADDRESS = `http://localhost:${DEFAULT_PORT}`;
+const ROOT_NODE_ADDRESS = isDevelopment ?
+`http://localhost:${DEFAULT_PORT}` :
+'https://safe-thicket-33067.herokuapp.com';
 
 const app = express();
 const blockchain = new Blockchain();
