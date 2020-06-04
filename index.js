@@ -63,18 +63,19 @@ app.post('/api/mine', (req, res) => {
 });
 
 app.post('/api/transact', (req, res) => {
-  const { amount, recipient } = req.body;
+  const { amount, recipient, privateKey } = req.body;
 
   let transaction = transactionPool
     .existingTransaction({ inputAddress: wallet.publicKey });
 
   try {
     if (transaction) {
-      transaction.update({ senderWallet: wallet, recipient, amount });
+      transaction.update({ senderWallet: wallet, recipient, amount, privateKey });
     } else {
       transaction = wallet.createTransaction({
         recipient,
         amount,
+        privateKey,
         chain: blockchain.chain
       });
     }
@@ -150,9 +151,9 @@ if (isDevelopment) {
   const walletFoo = new Wallet();
   const walletBar = new Wallet();
 
-  const generateWalletTransaction = ({ wallet, recipient, amount }) => {
+  const generateWalletTransaction = ({ wallet, recipient, amount, privateKey }) => {
     const transaction = wallet.createTransaction({
-      recipient, amount, chain: blockchain.chain
+      recipient, amount, privateKey, chain: blockchain.chain
     });
 
     transactionPool.setTransaction(transaction);

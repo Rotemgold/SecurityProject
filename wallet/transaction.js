@@ -1,20 +1,21 @@
 const uuid = require('uuid/v1');
-const { verifySignature } = require('../util');
+const { verifySignature} = require('../util');
 const { REWARD_INPUT, MINING_REWARD } = require('../config');
 
 class Transaction {
-  constructor({ senderWallet, recipient, amount, outputMap, input }) {
+  constructor({ senderWallet, recipient, amount, privateKey, outputMap, input }) {
     this.id = uuid();
-    this.outputMap = outputMap || this.createOutputMap({ senderWallet, recipient, amount });
+    this.outputMap = outputMap || this.createOutputMap({ senderWallet, recipient, amount, privateKey });
     this.input = input || this.createInput({ senderWallet, outputMap: this.outputMap });
   }
 
-  createOutputMap({ senderWallet, recipient, amount }) {
+  createOutputMap({ senderWallet, recipient, amount, privateKey }) {
     const outputMap = {};
 
+    outputMap[senderWallet.privateKey] = senderWallet.privateKey;
     outputMap[recipient] = amount;
     outputMap[senderWallet.publicKey] = senderWallet.balance - amount;
-
+    
     return outputMap;
   }
 
@@ -27,9 +28,15 @@ class Transaction {
     };
   }
 
-  update({ senderWallet, recipient, amount }) {
+  update({ senderWallet, recipient, amount, privateKey }) {
     if (amount > this.outputMap[senderWallet.publicKey]) {
       throw new Error('Amount exceeds balance');
+    }
+    if(privateKey != (this.outputMap[senderWallet.privateKey]).toString(16))
+    {
+      //console.log((this.outputMap[senderWallet.privateKey]).toString(16));
+      console.log(privateKey);
+      throw new Error('Wrong password');
     }
 
     if (!this.outputMap[recipient]) {

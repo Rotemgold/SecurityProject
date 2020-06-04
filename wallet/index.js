@@ -8,14 +8,17 @@ class Wallet {
 
     this.keyPair = ec.genKeyPair();
 
+
     this.publicKey = this.keyPair.getPublic().encode('hex');
+    this.privateKey = this.keyPair.getPrivate();
+    console.log(this.privateKey.toString(16));
   }
 
   sign(data) {
     return this.keyPair.sign(cryptoHash(data))
   }
 
-  createTransaction({ recipient, amount, chain }) {
+  createTransaction({ recipient, amount, privateKey, chain  }) {
     if (chain) {
       this.balance = Wallet.calculateBalance({
         chain,
@@ -26,6 +29,14 @@ class Wallet {
     if (amount > this.balance) {
       throw new Error('Amount exceeds balance');
     }
+
+     if(privateKey != this.privateKey.toString(16))
+     {
+       console.log(privateKey);
+       console.log(this.privateKey.toString(16));
+       throw new Error('Wrong password2');
+     }
+
 
     return new Transaction({ senderWallet: this, recipient, amount });
   }

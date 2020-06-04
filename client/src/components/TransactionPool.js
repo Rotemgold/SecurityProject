@@ -4,6 +4,7 @@ import Transaction from './Transaction';
 import { Link } from 'react-router-dom';
 import history from '../history';
 
+
 const POLL_INERVAL_MS = 10000;
 
 class TransactionPool extends Component {
@@ -43,6 +44,7 @@ class TransactionPool extends Component {
   render() {
     return (
       <div className='TransactionPool'>
+        
         <div><Link to='/'>Home</Link></div>
         <h3>Transaction Pool</h3>
         {
@@ -57,7 +59,6 @@ class TransactionPool extends Component {
         }
         <hr />
         <Button
-          bsStyle="danger"
           onClick={this.fetchMineTransactions}
         >
           Mine the Transactions

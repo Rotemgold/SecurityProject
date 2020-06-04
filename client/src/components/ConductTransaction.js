@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { FormGroup, FormControl, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import history from '../history';
-
 class ConductTransaction extends Component {
-  state = { recipient: '', amount: 0, knownAddresses: [] };
+  state = { recipient: '', amount: 0, privateKey: '', knownAddresses: [] };
 
   componentDidMount() {
     fetch(`${document.location.origin}/api/known-addresses`)
@@ -19,14 +18,17 @@ class ConductTransaction extends Component {
   updateAmount = event => {
     this.setState({ amount: Number(event.target.value) });
   }
+  updatePivateKey = event => {
+    this.setState({ privateKey: event.target.value });
+  }
 
   conductTransaction = () => {
-    const { recipient, amount } = this.state;
+    const { recipient, amount, privateKey } = this.state;
 
     fetch(`${document.location.origin}/api/transact`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ recipient, amount })
+      body: JSON.stringify({ recipient, amount, privateKey })
     }).then(response => response.json())
       .then(json => {
         alert(json.message || json.type);
@@ -68,9 +70,16 @@ class ConductTransaction extends Component {
             onChange={this.updateAmount}
           />
         </FormGroup>
+        <FormGroup>
+          <FormControl
+            input='text'
+            placeholder='privateKey'
+            value={this.state.privateKey}
+            onChange={this.updatePivateKey}
+          />
+        </FormGroup>
         <div>
           <Button
-            bsStyle="danger"
             onClick={this.conductTransaction}
           >
             Submit

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import Transaction from './Transaction';
 
+
 class Block extends Component {
   state = { displayTransaction: false };
 
@@ -31,7 +32,7 @@ class Block extends Component {
           }
           <br />
           <Button
-            bsStyle="danger"
+            
             bsSize="small"
             onClick={this.toggleTransaction}
           >
@@ -45,7 +46,7 @@ class Block extends Component {
       <div>
         <div>Data: {dataDisplay}</div>
         <Button
-          bsStyle="danger"
+          
           bsSize="small"
           onClick={this.toggleTransaction}
         >

@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Block from './Block';
 
+
 class Blocks extends Component {
   state = { blocks: [], paginatedId: 1, blocksLength: 0 };
 
@@ -25,6 +26,7 @@ class Blocks extends Component {
       
     return (
       <div>
+        
         <div><Link to='/'>Home</Link></div>
         <h3>Blocks</h3>
         <div>
@@ -34,7 +36,7 @@ class Blocks extends Component {
 
               return (
                 <span key={key} onClick={this.fetchPaginatedBlocks(paginatedId)}>
-                  <Button bsSize="small" bsStyle="danger">
+                  <Button bsSize="small" >
                     {paginatedId}
                   </Button>{' '}
                 </span>
