@@ -11,7 +11,7 @@ class Wallet {
 
     this.publicKey = this.keyPair.getPublic().encode('hex');
     this.privateKey = this.keyPair.getPrivate();
-    console.log(this.privateKey.toString(16));
+    console.log("Your privte key= " + this.privateKey.toString(16));
   }
 
   sign(data) {

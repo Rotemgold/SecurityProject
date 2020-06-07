@@ -1,3 +1,4 @@
+// for proof of work
 const Blockchain = require('../blockchain');
 
 const blockchain = new Blockchain();

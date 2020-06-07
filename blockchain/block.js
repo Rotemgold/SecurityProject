@@ -2,6 +2,7 @@ const hexToBinary = require('hex-to-binary');
 const { GENESIS_DATA, MINE_RATE } = require('../config');
 const { cryptoHash } = require('../util');
 
+
 class Block {
   constructor({ timestamp, lastHash, hash, data, nonce, difficulty }) {
     this.timestamp = timestamp;
@@ -41,6 +42,6 @@ class Block {
 
     return difficulty + 1;
   }
-}
+}//end Block class
 
 module.exports = Block;

@@ -1,3 +1,4 @@
+// P2P server
 const redis = require('redis');
 
 const CHANNELS = {
@@ -70,6 +71,6 @@ class PubSub {
       message: JSON.stringify(transaction)
     });
   }
-}
+}// end Cladd PubSub
 
 module.exports = PubSub;

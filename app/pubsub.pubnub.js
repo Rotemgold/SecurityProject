@@ -1,3 +1,4 @@
+// P2P server
 const PubNub = require('pubnub');
 
 const credentials = {
@@ -92,6 +93,6 @@ class PubSub {
       message: JSON.stringify(transaction)
     });
   }
-}
+}// end Cladd PubSub
 
 module.exports = PubSub;

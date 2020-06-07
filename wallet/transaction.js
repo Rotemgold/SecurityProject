@@ -34,8 +34,7 @@ class Transaction {
     }
     if(privateKey != (this.outputMap[senderWallet.privateKey]).toString(16))
     {
-      //console.log((this.outputMap[senderWallet.privateKey]).toString(16));
-      console.log(privateKey);
+      console.log("Your private key= " + privateKey);
       throw new Error('Wrong password');
     }
 
@@ -51,7 +50,7 @@ class Transaction {
     this.input = this.createInput({ senderWallet, outputMap: this.outputMap });
   }
 
-  static validTransaction(transaction) {
+  static verifyTransaction(transaction) {
     const { input: { address, amount, signature }, outputMap } = transaction;
 
     const outputTotal = Object.values(outputMap)
@@ -78,6 +77,6 @@ class Transaction {
       outputMap: { [minerWallet.publicKey]: MINING_REWARD }
     });
   }
-}
+}// end class Transaction
 
 module.exports = Transaction;

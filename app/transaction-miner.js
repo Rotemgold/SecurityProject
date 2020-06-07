@@ -1,3 +1,4 @@
+// for merage the temp blocks
 const Transaction = require('../wallet/transaction');
 
 class TransactionMiner {
@@ -21,6 +22,6 @@ class TransactionMiner {
 
     this.transactionPool.clear();
   }
-}
+}//end class TransactionMinter
 
 module.exports = TransactionMiner;
