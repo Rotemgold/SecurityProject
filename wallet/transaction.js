@@ -3,7 +3,7 @@ const { verifySignature} = require('../util');
 const { REWARD_INPUT, MINING_REWARD } = require('../config');
 
 class Transaction {
-  constructor({ senderWallet, recipient, amount, privateKey, outputMap, input }) {
+  constructor({ senderWallet, recipient, amount, outputMap, input, privateKey }) {
     this.id = uuid();
     this.outputMap = outputMap || this.createOutputMap({ senderWallet, recipient, amount, privateKey });
     this.input = input || this.createInput({ senderWallet, outputMap: this.outputMap });
@@ -12,7 +12,7 @@ class Transaction {
   createOutputMap({ senderWallet, recipient, amount, privateKey }) {
     const outputMap = {};
 
-    outputMap[senderWallet.privateKey] = senderWallet.privateKey;
+    //outputMap[senderWallet.privateKey] = senderWallet.privateKey;
     outputMap[recipient] = amount;
     outputMap[senderWallet.publicKey] = senderWallet.balance - amount;
     
@@ -58,6 +58,8 @@ class Transaction {
       .reduce((total, outputAmount) => total + outputAmount);
 
     if (amount !== outputTotal) {
+      console.log(amount);
+      console.log(outputTotal);
       console.error(`Invalid transaction from ${address}`);
       return false;
     }
