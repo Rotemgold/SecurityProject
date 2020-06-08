@@ -32,9 +32,8 @@ class Transaction {
     if (amount > this.outputMap[senderWallet.publicKey]) {
       throw new Error('Amount exceeds balance');
     }
-    if(privateKey != (this.outputMap[senderWallet.privateKey]).toString(16))
+    if(privateKey != (senderWallet.privateKey.toString(16)))
     {
-      console.log("Your private key= " + privateKey);
       throw new Error('Wrong password');
     }
 
