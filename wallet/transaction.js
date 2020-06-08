@@ -50,7 +50,7 @@ class Transaction {
     this.input = this.createInput({ senderWallet, outputMap: this.outputMap });
   }
 
-  static verifyTransaction(transaction) {
+  static validTransaction(transaction) {
     const { input: { address, amount, signature }, outputMap } = transaction;
 
     const outputTotal = Object.values(outputMap)
